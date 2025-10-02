@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CropzCard - Coming Soon</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a5f3a 0%, #2d8659 50%, #4a9b6f 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Animated background elements */
+        .bg-decoration {
+            position: fixed;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .leaf1 {
+            top: 10%;
+            left: 10%;
+            width: 150px;
+            height: 150px;
+            background: white;
+            border-radius: 0 100% 0 100%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .leaf2 {
+            bottom: 15%;
+            right: 15%;
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 100% 0 100% 0;
+            animation: float 7s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        header {
+            padding: 30px 50px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 120px;
+            height: 80px;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            padding: 5px;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .brand-name {
+            font-size: 32px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .coming-soon {
+            font-size: 96px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+            animation: fadeInScale 1s ease-out;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .tagline {
+            font-size: 28px;
+            color: #e8f5e9;
+            margin-bottom: 50px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .feature-cards {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 1000px;
+            animation: slideUp 1.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            width: 280px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            color: white;
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #e8f5e9;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .notify-section {
+            margin-top: 50px;
+            animation: fadeIn 2s ease-out;
+        }
+
+        .notify-container {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            max-width: 500px;
+        }
+
+        .notify-container h2 {
+            color: white;
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .notify-container p {
+            color: #e8f5e9;
+            font-size: 16px;
+            margin-bottom: 25px;
+        }
+
+        .email-form {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .email-input {
+            flex: 1;
+            min-width: 200px;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            outline: none;
+            background: white;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .email-input:focus {
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
+        }
+
+        .notify-button {
+            padding: 15px 35px;
+            background: #1a5f3a;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .notify-button:hover {
+            background: #145030;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .notify-button:active {
+            transform: translateY(0);
+        }
+
+        .success-message {
+            display: none;
+            color: #c8e6c9;
+            font-size: 14px;
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+
+        footer {
+            padding: 20px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+        }
+
+        .footer-links {
+            margin-top: 10px;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #c8e6c9;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .coming-soon {
+                font-size: 56px;
+            }
+
+            .tagline {
+                font-size: 20px;
+            }
+
+            header {
+                padding: 20px 30px;
+            }
+
+            .brand-name {
+                font-size: 24px;
+            }
+
+            .feature-cards {
+                gap: 20px;
+            }
+
+            .card {
+                width: 100%;
+                max-width: 350px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-decoration leaf1"></div>
+    <div class="bg-decoration leaf2"></div>
+
+    <header>
+        <div class="logo-container">
+            <div class="logo">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="CropzCard Logo" id="logoImage">
+            </div>
+            <span class="brand-name">CropzCard</span>
+        </div>
+    </header>
+
+    <main>
+        <h1 class="coming-soon">Coming Soon..</h1>
+        <p class="tagline">Agri.Business.Connect.</p>
+
+        <div class="feature-cards">
+            <div class="card">
+                <div class="card-icon">🌾</div>
+                <h3>Farm Management</h3>
+                <p>Streamline your agricultural operations with smart tools</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">💳</div>
+                <h3>Digital Payments</h3>
+                <p>Secure and fast transactions for agricultural products</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🤝</div>
+                <h3>Business Network</h3>
+                <p>Connect with suppliers, buyers, and agricultural experts</p>
+            </div>
+        </div>
+
+        <div class="notify-section">
+            <div class="notify-container">
+                <h2>Get Notified</h2>
+                <p>Be the first to know when we launch!</p>
+                <form class="email-form" id="notifyForm">
+                    <input type="email" class="email-input" placeholder="Enter your email" required id="emailInput">
+                    <button type="submit" class="notify-button">Notify Me</button>
+                </form>
+                <div class="success-message" id="successMessage">
+                    ✓ Thank you! We'll notify you when we launch.
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 CropzCard. Revolutionizing Agricultural Business.</p>
+        <div class="footer-links">
+            <a href="#about">About Us</a>
+        </div>
+    </footer>
+
+    <script>
+        // Load the actual logo image using FileReader
+        async function loadLogo() {
+            try {
+                const logoImg = document.getElementById('logoImage');
+                // Read the uploaded file
+                const fileData = await window.fs.readFile('tmpFiles/image-1727849696293.png');
+                
+                // Convert to blob and create object URL
+                const blob = new Blob([fileData], { type: 'image/png' });
+                const url = URL.createObjectURL(blob);
+                
+                logoImg.src = url;
+            } catch (error) {
+                console.error('Error loading logo:', error);
+                // Fallback: keep the placeholder
+            }
+        }
+        
+        // Load logo on page load
+        loadLogo();
+        
+        // Handle form submission
+        document.getElementById('notifyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('emailInput').value;
+            const successMsg = document.getElementById('successMessage');
+            
+            // Here you would typically send the email to your backend
+            console.log('Email submitted:', email);
+            
+            // Show success message
+            successMsg.style.display = 'block';
+            document.getElementById('emailInput').value = '';
+            
+            // Hide message after 5 seconds
+            setTimeout(() => {
+                successMsg.style.display = 'none';
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
